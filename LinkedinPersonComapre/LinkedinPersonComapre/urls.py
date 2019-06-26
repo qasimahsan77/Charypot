@@ -16,10 +16,13 @@ import app.views
 
 urlpatterns = [
     # Examples:
-    url(r'^$', app.views.home, name='home'),
-    url(r'^contact$', app.views.contact, name='contact'),
-    url(r'^about', app.views.about, name='about'),
-    url(r'^finder', app.views.about, name='finder'),
+    #url(r'^$', app.views.home, name='home'),
+    url(r'^$', app.views.finder, name='finder'),
+    url(r'^finder', app.views.finder, name='finder'),
+    url(r'^Demo$', app.views.Demo, name='Demo'),
+    #url(r'^LoginDemo', app.views.LoginDemo, name='LoginDemo'),
+    url(r'^SendEmail/$', app.views.SendEmail,name='SendPdfEmail'),
+    url(r'^RedirectDemo/$', app.views.RedirectDemo,name='RedirectDemo'),
     url(r'^login/$',
         django.contrib.auth.views.login,
         {

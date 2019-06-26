@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 import posixpath
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -39,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -67,6 +66,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+               'custom_filter_tags': 'app.template_tags.custom_filter_tags',
+            }
         },
     },
 ]
@@ -80,7 +82,13 @@ WSGI_APPLICATION = 'LinkedinPersonComapre.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
+        #'ENGINE': 'django.db.backends.mysql',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'NAME': 'charypot_LinkedInTwitter_Data',
+        #'USER': 'charypot_tony',
+        #'PASSWORD':'Allah_786',
+        #'HOST': '192.254.250.177',
+        #'PORT': '',
     }
 }
 
@@ -120,6 +128,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
+
+#MEDIA_ROOT = os.path.join(SITE_ROOT, 'media')
+#MEDIA_URL = '/static/app/Images'
 
 STATIC_URL = '/static/'
 

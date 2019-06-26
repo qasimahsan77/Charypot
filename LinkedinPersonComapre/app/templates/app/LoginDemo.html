@@ -1,0 +1,38 @@
+﻿{% extends "app/layout.html" %}
+{% load custom_filter_tags %}
+{% block content %}
+<style>
+    body{
+        background-image:url("../../static/app/Images/Background Image.jpg");
+        background-repeat:no-repeat;
+        background-size:cover;
+
+    }
+</style>
+<body>
+    <p>This is Login Demo</p>
+    <form method="post" enctype="multipart/form-data" name="form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Submit"/>
+    </form>
+</body>
+<script>
+    $('form').submit(function () {
+        $.ajax({
+            type: 'POST',
+            dataType: 'json',
+            headers: { "X-CSRFToken": csrftoken },
+            url: '/LoginDemo',
+            data: {
+                LinkedinEmail: LinkedinEmail,
+            },
+            success: function (response) {
+                console.log(response);
+                // replace the inside of #wrapper div with the injection.html (that has the new items values)
+                alert(response.message);
+            }
+        });
+    });
+</script>
+{% endblock %}

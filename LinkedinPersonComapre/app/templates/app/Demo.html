@@ -1,0 +1,282 @@
+﻿{% extends "app/layout.html" %}
+{% load custom_filter_tags %}
+{% block content %}
+<style>
+    body {
+        background-image: url("../../static/app/Images/Hashtag.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    ul.img-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+        ul.img-list li {
+            display: inline-block;
+            height: 350px;
+            margin: 0 1.5em 1em 0;
+            position: relative;
+            width: 350px;
+        }
+
+    span.text-content {
+        background: rgba(0,0,0,0.5);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 350px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 350px;
+    }
+
+        span.text-content span {
+            display:block;
+            text-align: center;
+            vertical-align:middle;
+        }
+
+    span.text-content {
+        background: rgb(254, 136, 136);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 350px;
+        left: 0;
+        margin-left:1.5em;
+        position: absolute;
+        top: 0;
+        width: 350px;
+        opacity: 0;
+    }
+
+    ul.img-list li:hover span.text-content {
+        opacity: 0.7;
+    }
+
+    span.text-content {
+        background: rgb(254, 136, 136);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 350px;
+        left: -0.5em;
+        position: absolute;
+        top: 0;
+        font-weight:600;
+        font-size:1.5em;
+        text-align:center;
+        width: 350px;
+        opacity: 0;
+        /*-webkit-transition: opacity 500ms;
+        -moz-transition: opacity 500ms;
+        -o-transition: opacity 500ms;*/
+        /*transition: opacity 500ms;*/
+        transition: .5s ease-in-out;
+    }
+    .text {
+        color: white;
+        font-size: 30px;
+        position: absolute;
+        top: 5%;
+        left: 25%;
+        text-align:center;
+    }
+    .Logo{
+        position:absolute;
+        margin-left:71.5%;
+    }
+    
+    #image {
+        display: none;
+    }
+    label{
+        margin-bottom:1em;
+    }
+    #image.show {
+        display: block;
+        position: fixed;
+        z-index: 100;
+        background-image: url("../../static/app/Images/Loading 3.gif");
+        /*#background-color: #666;*/
+        opacity: 0.4;
+        text-align:center;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-top:15em;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+    }
+    #loadinggif.show {
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        z-index: 101;
+        width: 32px;
+        height: 32px;
+        margin-left: -16px;
+        margin-top: -16px;
+    }
+</style>
+<body>
+    <div class="container-fluid">
+            <div class="Logo">
+        <img src="../../static/app/Images/Logo.png" alt="Logo.png" width="180" height="60"/>
+    </div>
+        <div class="row"></div>
+        {%if ProfileOne|length > 0 %}
+        <div class="col-md-6" style="position:absolute;margin-top:20em;">
+            {%for FirstName, LastName, CurrentOccupation, ProfileURL, Headline, LocationName, IndustryName,Summary, Description, SchoolName, CompanyName, CroppedImage, ProfileOccupation, SkillsName,CompanyTitle,DegreeName,StudyField,Activity in ProfileOne %}
+            <div class="row">
+                <div class="pull-left col-md-1">
+                    <a href="{{ProfileURL|safe}}" target="_blank">
+                        <h3>HI,<br /><b>{{FirstName|safe}}</b></h3>
+                    </a>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+        {%endif%}
+    {%if ProfileTwo|length > 0 %}
+    <div class="col-md-12">
+        {%for FirstName, LastName, CurrentOccupation, ProfileURL, Headline, LocationName, IndustryName,Summary, Description, SchoolName, CompanyName, CroppedImage, ProfileOccupation, SkillsName,CompanyTitle,DegreeName,StudyField,Activity in ProfileTwo %} 
+        <div class="row">
+            <ul class="img-list">
+                <li class="col-md-4 col-md-push-2">
+                    <img src="../../static/app/Images/In Common.jpg" width="350" height="350" />
+                    <figcaption class="text text-center">In Common</figcaption>
+                    <span class="text-content">
+                    {%for MatchData in InCommenData%}
+                        {%if MatchData.0|length > 0 %}
+                        {%for MD in MatchData.0%}
+                        {%if "N/A" in MD %}
+                        <span>No match found</span>
+                        {%else%}
+                        <span>{{MD|safe}}</span>
+                        {%enif%}
+                        {%endfor%}
+                        {%endif%}
+                    {%endfor%}
+                    </span>
+                </li>
+                <li class="col-md-4 col-md-push-2">
+                    <img src="../../static/app/Images/Group Association.jpg" width="350" height="350" />
+                    <figcaption class="text">Group Assoc.</figcaption>
+                    <span class="text-content">
+                    {%for GN,GL in LinkedInGroup%}
+                        <span>
+                            <a href="{{GL|safe}}" target="_blank">{{GN|safe}}</a>
+                        </span>
+                    {%endfor%}
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+        <div class="col-md-10" style="position:absolute;margin-top:-20em;z-index:100;margin-left:10em;">
+        <div class="row">
+                <div class="pull-right">
+                    <h5 style="margin-left:1.7em;font-weight:600;">Not the right Person ?</h5>
+                    <img class="img-circle" src="{{CroppedImage|safe}}"
+                                     alt="User Pic" width="170" height="160"/>
+                    <a href="{{ProfileURL|safe}}" target="_blank">
+                        <h1 style="margin-left:15px;">{{FirstName|safe}} {{LastName|safe}}</h1>
+                    </a>
+                    <h6 style="font-weight:600;">Give us a chance to make it right. Click 
+                    <span style="color:red">HERE</span>
+                    </h6>
+                </div>
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="row">
+            <ul class="img-list">
+                <li class="col-md-4 col-md-push-2">
+                    <img src="../../static/app/Images/How to Help.jpg" width="350" height="350" />
+                    <figcaption class="text">How to help</figcaption>
+                    <span class="text-content">
+                        {%for s in SkillsName %}
+                        <span>{{s|safe}}</span>
+                        {%endfor%}
+                    </span>
+                </li>
+                <li class="col-md-4 col-md-push-2">
+                    <img src="../../static/app/Images/RPost.jpg" width="350" height="350" />
+                    <figcaption class="text">Recent Posts</figcaption>
+                    {%if LinkedInPost|length > 0 %}
+                    <span class="text-content">
+                        {%for T,L in LinkedInPost%}
+                        <span>
+                        <a href="{{L|safe}}" target="_blank">{{T|safe}}</a>
+                        </span>
+                        {%endfor%}
+                    </span>
+                    {%endif%}
+                </li>
+            </ul>
+        </div>
+    </div>
+    {%endfor%}
+    {%endif%}
+    <div class="col-md-10" style="position:absolute;margin-top:-6.6em;">
+        <div class="row pull-right">
+            <a href="#" id="SendEmail" class="{{PdfFileName|safe}}" data-toggle="tooltip" title="Send as Email!" data-placement="bottom">
+                <img  class="rounded"src="../../static/app/Images/email icon.png" alt="Email Image" width="120" height="80" />
+            </a>
+        </div>
+    </div>
+    <div id="image">
+        <h1 style="font-size:3em;margin-top:12em;position:relative;text-align:center;font-weight:bold;color: #ff0000;">Sending PDF as a Email..</h1>
+        {#<p>It takes a little time to create a bond…</p>#}
+    </div>
+    </div>
+    <script>
+        $('#SendEmail').click(function () {
+            var PdfId = $(this).attr('class');
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/SendEmail',
+            data: { pdfId: PdfId},
+            success: function (response) {
+                //console.log(response.message);
+                alert('Email Send Successfully')
+                // replace the inside of #wrapper div with the injection.html (that has the new items values)
+                //alert(response.message);
+            },
+            error: function (response) {
+                alert(response)
+                //console.log(response);
+                // replace the inside of #wrapper div with the injection.html (that has the new items values)
+            //alert(response);
+            },
+
+            beforeSend: function () {
+                $('#image').addClass('show');
+            },
+            complete: function (response) {
+                $('#image').removeClass('show');
+            }
+        });
+    });
+    //});
+    //$('#SendEmail').click(function () {
+    //    $.ajax({
+    //        //data: { 'id': "SendEmail" },
+    //        url: '/SendPdfEmail',
+    //        type: 'get',
+    //        success: function (data) {
+    //            // Do something with the data
+    //        }
+    //    });
+    //});
+</script>
+</body>
+
+{% endblock %}

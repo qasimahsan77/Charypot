@@ -15,7 +15,7 @@
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
-    <LaunchProvider>Django launcher</LaunchProvider>
+    <LaunchProvider>Web launcher</LaunchProvider>
     <OutputPath>.</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
@@ -29,6 +29,10 @@
   <ItemGroup>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
+    <Compile Include="app\template_tags\custom_filter_tags.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\template_tags\__init__.py" />
     <Compile Include="app\tests.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
@@ -42,6 +46,13 @@
   <ItemGroup>
     <Folder Include="app\" />
     <Folder Include="app\migrations\" />
+    <Folder Include="app\static\app\content\css\" />
+    <Folder Include="app\static\app\content\fonts\" />
+    <Folder Include="app\static\app\content\fonts\codropsicons\" />
+    <Folder Include="app\static\app\content\fonts\icomoon\" />
+    <Folder Include="app\static\app\Images\" />
+    <Folder Include="app\static\app\scripts\js\" />
+    <Folder Include="app\template_tags\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
     <Folder Include="app\static\app\content\" />
@@ -52,7 +63,35 @@
     <Folder Include="LinkedinPersonComapre\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\content\css\component.css" />
+    <Content Include="app\static\app\content\css\demo.css" />
+    <Content Include="app\static\app\content\css\normalize.css" />
+    <Content Include="app\static\app\content\fonts\.DS_Store" />
+    <Content Include="app\static\app\content\fonts\codropsicons\codropsicons.eot" />
+    <Content Include="app\static\app\content\fonts\codropsicons\codropsicons.svg" />
+    <Content Include="app\static\app\content\fonts\codropsicons\codropsicons.ttf" />
+    <Content Include="app\static\app\content\fonts\codropsicons\codropsicons.woff" />
+    <Content Include="app\static\app\content\fonts\codropsicons\license.txt" />
+    <Content Include="app\static\app\content\fonts\icomoon\icomoon.eot" />
+    <Content Include="app\static\app\content\fonts\icomoon\icomoon.svg" />
+    <Content Include="app\static\app\content\fonts\icomoon\icomoon.ttf" />
+    <Content Include="app\static\app\content\fonts\icomoon\icomoon.woff" />
+    <Content Include="app\static\app\Images\Background Image.jpg" />
+    <Content Include="app\static\app\Images\Group Association.jpg" />
+    <Content Include="app\static\app\Images\How to Help.jpg" />
+    <Content Include="app\static\app\Images\Image_Not_Available.png" />
+    <Content Include="app\static\app\Images\In Common.jpg" />
+    <Content Include="app\static\app\Images\Logo Two.png" />
+    <Content Include="app\static\app\Images\Logo.png" />
+    <Content Include="app\static\app\Images\RPost.jpg" />
+    <Content Include="app\static\app\scripts\js\classie.js" />
+    <Content Include="app\static\app\scripts\js\modernizr.custom.js" />
+    <Content Include="app\static\app\scripts\js\stepsForm.js" />
     <Content Include="app\templates\app\finder.html" />
+    <Content Include="app\templates\app\Demo.html" />
+    <Content Include="app\templates\app\LoginDemo.html" />
+    <Content Include="app\templates\app\Practice.html" />
+    <Content Include="app\templates\app\RedirectDemo.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
@@ -77,8 +116,6 @@
     <Content Include="app\static\app\scripts\respond.js" />
     <Content Include="app\static\app\scripts\respond.min.js" />
     <Content Include="app\static\app\scripts\_references.js" />
-    <Content Include="app\templates\app\about.html" />
-    <Content Include="app\templates\app\contact.html" />
     <Content Include="app\templates\app\index.html" />
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />

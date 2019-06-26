@@ -1,0 +1,305 @@
+﻿{% extends "app/layout.html" %}
+{% load custom_filter_tags %}
+{% block content %}
+ {#Stylesheet coding#}
+<style>
+    body {
+        background-image: url("../../static/app/Images/Background Image.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    ul.img-list {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+    }
+
+        ul.img-list li {
+            display: inline-block;
+            height: 350px;
+            margin: 0 1.5em 1em 0;
+            position: relative;
+            width: 350px;
+        }
+
+    span.text-content {
+        background: rgba(0,0,0,0.5);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 350px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 350px;
+    }
+
+        span.text-content span {
+            display:block;
+            text-align: center;
+            vertical-align:middle;
+        }
+
+    span.text-content {
+        background: rgb(254, 136, 136);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 350px;
+        left: 0;
+        margin-left:1em;
+        position: absolute;
+        top: 0;
+        width: 350px;
+        opacity: 0;
+    }
+
+    ul.img-list li:hover span.text-content {
+        opacity: 0.7;
+    }
+
+    span.text-content {
+        background: rgb(254, 136, 136);
+        color: white;
+        cursor: pointer;
+        display: table;
+        height: 350px;
+        left: 0;
+        position: absolute;
+        top: 0;
+        width: 350px;
+        opacity: 0;
+        /*-webkit-transition: opacity 500ms;
+        -moz-transition: opacity 500ms;
+        -o-transition: opacity 500ms;*/
+        /*transition: opacity 500ms;*/
+        transition: .5s ease-in-out;
+    }
+    .text {
+        color: white;
+        font-size: 30px;
+        position: absolute;
+        top: 5%;
+        left: 25%;
+        text-align:center;
+    }
+    .Logo{
+        position:absolute;
+        margin-left:91.5%;
+    }
+</style>
+<div class="Logo">
+        <img src="../../static/app/Images/Logo.jpg" alt="logo.jpg" width="100" height="50"/>
+    </div>
+<form method="post" enctype="multipart/form-data" name="form" >
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="container">
+    <div class="row"style="margin-top:4em;">
+    <div class="col-md-10 col-md-offset-2">
+        <div class="row">
+            <div class="form-inline">
+                <div class="form-group col-md-3">
+                <input type="text" placeholder="Linkedin User/Email" name="LinkedinEmail" class="form-control"/>
+            </div>
+            <div class="form-group col-md-3">
+                <input type="password" placeholder="Linkedin Password" name="LinkedinPassword" class="form-control" />
+            </div>
+            <div class="form-group col-md-3">
+                <input type="text" placeholder="Skills Separate By Colon" name="Skills" class="form-control" />
+            </div>
+            </div>        
+        </div>
+    <div class="row" style="margin-top:0.5em;">
+        <div class="form-inline">
+            <div class="form-group col-md-3">
+                <input type="text" placeholder="THEM: Person Name" name="PersonTwo" class="form-control" />
+            </div>
+            <div class="form-group col-md-3">
+                <input type="text" placeholder="THEM: Person Title/Job/Kind" name="TitleTwo" class="form-control" />
+            </div>
+            <div class="form-group col-md-3">
+                <input type="text" placeholder="THEM:Person Location" name="Compare_Location" class="form-control" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-inline">
+                <div class="form-group col-md-offset-7">
+                    <button type="submit" class="btn btn-primary col-md-12" style="margin-top:0.5em;">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+        </div>
+    </div>
+</form>
+<div class="row">
+    {% if Approved|length > 0 and request.method == "POST" %}
+        <div class="alert btn-danger col-lg-12" role="alert">
+            <p class="text-center">Your LinkedIn usernsame/password Not Correct.Please try again!</p>
+        </div>
+    {%endif%}
+    {%if ProfileOne|length > 0 %}
+    <div class="col-md-12" style="position:absolute;margin-top:20em;">
+        {%for FirstName, LastName, CurrentOccupation, ProfileURL, Headline, LocationName, IndustryName,Summary, Description, SchoolName, CompanyName, CroppedImage, ProfileOccupation, SkillsName,CompanyTitle,DegreeName,StudyField,Activity in ProfileOne %}  
+        <div  class="col-md-12" style="position:absolute;margin-top:5em;">       
+                <div class="row">
+                    <div class="pull-left col-md-2 col-md-offset-5">
+                        <a href="{{ProfileURL|safe}}" target="_blank">
+                            <h3>HI,{{FirstName|safe}}</h3>
+                        </a>
+                    </div>
+                </div>
+        </div>
+        {%endfor%}
+    </div>
+    {%endif%}
+    {%if ProfileTwo|length > 0 %}
+        <div class="col-md-12">
+            {%for FirstName, LastName, CurrentOccupation, ProfileURL, Headline, LocationName, IndustryName,Summary, Description, SchoolName, CompanyName, CroppedImage, ProfileOccupation, SkillsName,CompanyTitle,DegreeName,StudyField,Activity in ProfileTwo %}  
+            <div class="col-md-12">
+                <div class="row">
+                    <ul class="img-list">
+                        <li class="col-md-6 col-md-push-3">
+                            <img src="../../static/app/Images/In Common.jpg" width="350" height="350" />
+                            <figcaption class="text text-center">In Common</figcaption>
+                            <span class="text-content"><span>In Common Text</span></span>
+                        </li>
+                        <li class="col-md-6 col-md-push-3">
+                            <img src="../../static/app/Images/Group Association.jpg" width="350" height="350" />
+                            <figcaption class="text">Group Assoc.</figcaption>
+                            <span class="text-content">
+                            {%for GN,GL in LinkedInGroup%}
+                                <span>
+                                <a href="{{GL|safe}}">{{GN|safe}}</a>
+                                </span>
+                            {%endfor%}
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-12" style="position:absolute;margin-top:5em;">
+            <div class="row">
+                <div class="pull-right col-md-2  col-md-offset-10">
+                    <p>Not the right Person ?</p>
+                    <img class="img-circle" src="{{CroppedImage|safe}}"
+                                     alt="User Pic" width="100" height="100"/>
+                    <a href="{{ProfileURL|safe}}" target="_blank">
+                            <p>{{FirstName|safe}} {{LastName|safe}}</p>
+                        </a>
+                    <p>Give us a chance to makr it Right <span style="color:red">Here</span></p>
+                </div>
+            </div>
+        </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <ul class="img-list">
+                        <li class="col-md-6 col-md-push-3">
+                            <img src="../../static/app/Images/How to Help.jpg" width="350" height="350" />
+                            <figcaption class="text">How to help</figcaption>
+                            <span class="text-content">
+                                {%for s in SkillsName %}
+                                <span>{{s|safe}}</span>
+                                {%endfor%}
+                            </span>
+                        </li>
+                        <li class="col-md-6 col-md-push-3">
+                            <img src="../../static/app/Images/RPost.jpg" width="350" height="350" />
+                            <figcaption class="text">Recent Posts</figcaption>
+                            {%if LinkedInPost|length > 0 %}
+                            <span class="text-content">
+                                {%for T,L in LinkedInPost%}
+                                <span><a href="{{L|safe}}">{{T|safe}}</a></span>
+                                {%endfor%}
+                            </span>
+                            {%endif%}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    {%endif%}
+</div>
+<div class="row">
+    {%if TwitterProfileTwo|length > 0 %}
+        <div class="col-md-12">
+            {%for ProfileLink,Profile_Username,Profile_ID,Profile_Location,Profile_Image,Latest_Post in TwitterProfileTwo %}
+            <div class="col-md-6">
+            <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Twitter Information</h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3 col-lg-3 hidden-xs hidden-sm">
+                                <img class="img-circle"
+                                     src="{{Profile_Image|safe}}"
+                                     alt="User Pic" width="100" height="100"/>
+                            </div>
+                            <div class="col-md-12 col-lg-12 hidden-xs hidden-sm">
+                                <a href="{{ProfileLink|safe}}" target="_blank">
+                                    <strong>{{Profile_Username|safe}} ({{Profile_ID|safe}})</strong>
+                                </a>
+                                
+                                <table class="table table-user-information">
+                                    <tbody>
+                                    <tr>
+                                        <td><b><u>Current Location</u></b>:{{Profile_Location|safe}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td><b><u>Post Link</u></b>:{{Latest_Post|safe}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {%endfor%}
+        </div>
+    {%endif%}
+        <div class="pull-right col-md-2 col-md-offset-6">
+        <button id="SendEmail" value="Adrian12-17-18 200943::qasimahsan77@gmail.com">
+            <img  class="rounded"src="../../static/app/Images/email icon.jpg" alt="Email Image" width="120" height="80" />
+        </button>
+    </div>
+</div>
+<script>
+    $('#SendEmail').click(function () {
+        var PdfId=$(this).val();
+        //alert(PdfId);
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/SendEmail',
+            data: { pdfId: PdfId},
+            success: function (response) {
+                console.log(response.message);
+                // replace the inside of #wrapper div with the injection.html (that has the new items values)
+                alert(response.message);
+            },
+            error: function (response) {
+            console.log(response);
+                // replace the inside of #wrapper div with the injection.html (that has the new items values)
+            alert(response);
+        }
+        });
+    });
+    //});
+    //$('#SendEmail').click(function () {
+    //    $.ajax({
+    //        //data: { 'id': "SendEmail" },
+    //        url: '/SendPdfEmail',
+    //        type: 'get',
+    //        success: function (data) {
+    //            // Do something with the data
+    //        }
+    //    });
+    //});
+</script>
+{% endblock %}

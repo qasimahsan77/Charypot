@@ -1,10 +1,214 @@
 ﻿{% extends "app/layout.html" %}
-
+{% load custom_filter_tags %}
 {% block content %}
+<style>
+    body {
+        background-image: url("../../static/app/Images/Hashtag.JPG");
+        background-repeat:inherit;
+        background-size:cover;
+    }
+    #image {
+        display: none;
+    }
+    label{
+        margin-bottom:1em;
+    }
+    #image.show {
+        display: block;
+        position: fixed;
+        z-index: 100;
+        background-image: url("../../static/app/Images/Loading 3.gif");
+        /*#background-color: #666;*/
+        opacity: 0.4;
+        text-align:center;
+        background-repeat: no-repeat;
+        background-position: center;
+        margin-top:15em;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        top: 0;
+    }
+    #loadinggif.show {
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        z-index: 101;
+        width: 32px;
+        height: 32px;
+        margin-left: -16px;
+        margin-top: -16px;
+    }
+</style>
+<body>
+    <div class="container">
+    <header class="codrops-header">
+        <img src="../../static/app/Images/Picture1.png" alt="logo.jpg" width="300" height="70"/>
+        <figcaption class="text text-center"><h2><b>Finding the bonds</b> <span style="font-family:Calibri;color:darkgray;font:bold"> that bring us closer</span></h2></figcaption>
+        <div class="col-md-12" style="margin-top:5em;">
+            <div class="col-md-4 col-md-offset-8">
+                <h1 style="font-size:1.7em;"><b style="color:red;">Look up a person</b>. In a few seconds, see what you have in common, what groups they are associated with, how they can help you, and what they have recently shared with the world.
+                </h1>
+            </div>
+        </div>	
+    </header>
+    <section>
+        {#<form id="theForm" class="simform" autocomplete="off" method="post" enctype="multipart/form-data" name="form" >#}
+        <form method="post" class="simform" id="theForm" enctype="multipart/form-data" name="form" style="margin-top:2em;">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="simform-inner">
+            <ol class="questions">
+            <li>
+                <span>
+                    <label for="q1">Before we can work our magic, let us know a little about…
+                    </label>
+                </span>
+                <input id="q1" name="LinkedinEmail" type="text" placeholder="YOU: Enter your LinkedIn email"/>
+            </li>
+            <li>
+                <span>
+                    <label for="q2">Before we can work our magic, let us know a little about…
+                    </label>
+                </span>
+                <input id="q2" name="LinkedinPassword" type="password" placeholder="YOU: Enter your LinkedIn password"/>
+            </li>
+            <li>
+                <span>
+                    <label for="q3">Before we can work our magic, let us know a little about…</label>
+                </span>
+                <input id="q3" name="Skills" type="text" placeholder="YOU: Enter skills you may need help with"/>
+            </li>
+            <li>
+                <span>
+                    <label for="q4">Before we can work our magic, let us know a little about…</label>
+                </span>
+                <input id="q4" name="PersonTwo" type="text" placeholder="THEM: Enter their full name"/>
+            </li>
+            <li>
+                <span>
+                    <label for="q5">Before we can work our magic, let us know a little about…</label>
+                </span>
+                <input id="q5" name="TitleTwo" type="text" placeholder="THEM: Enter their current company"/>
+            </li>
+            <li>
+                <span>
+                    <label for="q6">Before we can work our magic, let us know a little about…</label>
+                </span>
+                <input id="q6" name="Compare_Location" type="text" placeholder="THEM: Enter their Location "/>
+            </li>
+            </ol>
+            <button class="submit" type="submit"></button>
+            <div class="controls">
+            <button class="next"></button>
+            <div class="progress"></div>
+            <span class="number">
+                <span class="number-current" style="font-size:x-large;"><b style="font-size:xx-large;">/</b></span>
+                <span class="number-total" style="font-size:x-large;"></span>
+            </span>
+            <span class="error-message"></span>
+            </div><!-- / controls -->
+            </div><!-- /simform-inner -->
+					{#<span class="final-message"></span>#}
+		</form><!-- /simform -->			
+    </section>
+    <div>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
+        <h1>&nbsp;</h1>
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+    </div>
+    <div id="image">
+        <h1 style="font-size:3em;margin-top:12em;position:relative;text-align:center;font-weight:bold;color: #ff0000;">It takes a little time to create a bond…</h1>
+        {#<p>It takes a little time to create a bond…</p>#}
+    </div>
 
-<p>Use this area to provide additional information.</p>
+    </div><!-- /container -->
+    <script src="../../static/app/scripts/js/classie.js"></script>
+	<script src="../../static/app/scripts/js/stepsForm.js"></script>
+    <script>
+        //$('form').submit(function () {
+        //    $.ajax({
+        //        type: 'POST',
+        //        dataType: 'json',
+        //        url: '/finder',
+        //        data: { pdfId: PdfId },
+        //        success: function (response) {
+        //            console.log(response.message);
+        //            // replace the inside of #wrapper div with the injection.html (that has the new items values)
+        //            alert(response.message);
+        //        },
+        //        error: function (response) {
+        //            console.log(response);
+        //            // replace the inside of #wrapper div with the injection.html (that has the new items values)
+        //            alert(response);
+        //        }
+        //    });
+        //});
+        var theForm = document.getElementById('theForm');
+        new stepsForm(theForm, {
+            onSubmit: function (form) {
+		//			// hide form
+                classie.addClass(theForm.querySelector('.simform-inner'), 'hide');
+                //var form = $(this).closest("form");
+                var csrftoken = $("[name=csrfmiddlewaretoken]").val();
+                var LinkedinEmail = $("[name=LinkedinEmail]").val();
+                var LinkedinPassword = $("[name=LinkedinPassword]").val();
+                var Skills = $("[name=Skills]").val();
+                var PersonTwo = $("[name=PersonTwo]").val();
+                var TitleTwo = $("[name=TitleTwo]").val();
+                var Compare_Location = $("[name=Compare_Location]").val();
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    headers: {"X-CSRFToken": csrftoken},
+                    url: '/finder',
+                    data: {
+                        LinkedinEmail: LinkedinEmail,
+                        LinkedinPassword: LinkedinPassword,
+                        Skills: Skills,
+                        PersonTwo: PersonTwo,
+                        TitleTwo: TitleTwo,
+                        Compare_Location: Compare_Location
+                    },
+                    beforeSend: function () {
+                        $('#image').addClass('show');
+                        //var DisplayIMge = document.getElementById("#image");
+                        //DisplayIMge.innerHTML = "<h1>It takes a little time to create a bond…</h1>"
+                    },
+                    success: function (response) {
+                        window.location('/Demo')
+                        console.log(response);
+                        // replace the inside of #wrapper div with the injection.html (that has the new items values)
+                        alert(response.message);
+                    },
+                    complete: function () {
+                        alert('Redirecting to THe Page')
+                        window.location.href='/Demo'
+                    },
+                    error: function (response) {
+                        $('#image').removeClass('show');
+                    }
+                    //complete: function () {
+                    //    $('#image').removeClass('show');
+                    //}
+                });
 
+		//			// let's just simulate something...
+					var messageEl = theForm.querySelector( '.final-message' );
+					messageEl.innerHTML = 'Thank you! We\'ll be in touch.';
+					classie.addClass( messageEl, 'show' );
+				}
+			} );
+		</script>
+	</body>
 {% endblock %}
